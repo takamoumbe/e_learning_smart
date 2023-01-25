@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class SouscriptionModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'souscriptions';
+    protected $table            = 'souscription';
     protected $primaryKey       = 'id_souscrip';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
