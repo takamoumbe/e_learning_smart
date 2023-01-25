@@ -40,6 +40,10 @@ $routes->set404Override();
 
     $routes->get('/', 'Home::index');
 
+    $routes->get('Login', 'Home::login');
+
+    
+
 /*
  * --------------------------------------------------------------------
  * FORMATIONS
@@ -151,17 +155,17 @@ $routes->set404Override();
  * SOUSCRIPTIONS
  * --------------------------------------------------------------------
  */
-    $routes->group("souscription", function ($routes) 
+    $routes->group("souscription", function ($routes)  
     { 
 
         #@Routes get ---
         $routes->get("ListAll",                "SouscriptionControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "SouscriptionControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "SouscriptionControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "SouscriptionControl::delete_/$1",      ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "SouscriptionControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "SouscriptionControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
-        $routes->post("Save",                  "SouscriptionControl::save",           ['filter' => 'authFilter']); 
+        $routes->post("Save",                  "SouscriptionControl::save"                                     ); 
 
     });
 

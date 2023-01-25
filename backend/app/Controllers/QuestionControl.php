@@ -80,6 +80,7 @@ class QuestionControl extends ResourcePresenter
         $data['inactive']       = $QuestionModel->where('status_question', 'inactive')->findAll();
         $data['delete']         = $QuestionModel->where('etat_question', 1)->findAll();
         $data['all']            = $QuestionModel->where('etat_question', 0)->findAll();
+        $data['repondu']        = $QuestionModel->getQues_resp(); 
 
         return $this->respond($data);
     }
@@ -190,5 +191,6 @@ class QuestionControl extends ResourcePresenter
 
         }
     }
+
 
 }

@@ -49,4 +49,14 @@ class QuestionModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getQues_resp(){
+        $builder = $this->db->table('question');
+        $builder->where('etat_question', 0);
+        $builder->where('reponse !=', '');
+        $builder->orderBy('id_question', 'DESC');
+        $builder->select('*');
+        $res = $builder->get();
+        return $res->getResultArray();
+    }
 }

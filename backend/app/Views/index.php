@@ -40,6 +40,9 @@
 
   <!-- Template Main CSS File -->
   <link href="<?= base_url() ?>/assets/css/style.css" rel="stylesheet">
+
+  <!-- include sweet alert -->
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/sweet/sweetalert2.css">
   
 </head>
 
@@ -59,7 +62,7 @@
           <li><a class="nav-link   scrollto" href="#portfolio">Project</a></li>
           <li><a class="nav-link scrollto" href="#team">Equipe</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Commencer</a></li>
+          <li><a class="getstarted scrollto" href="<?= base_url() ?>/Login">Commencer</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -76,7 +79,7 @@
           <h1>Learn professional development</h1>
           <h2>become a computer professional</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <a href="<?= base_url() ?>/Login" class="btn-get-started scrollto">Get Started</a>
             <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
         </div>
@@ -497,15 +500,9 @@
         </div>
 
         <div class="faq-list">
-          <ul>
-            <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Aucune question <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                <p>
-                 Contenue vide.
-                </p>
-              </div>
-            </li>
+          <ul id="list_question">
+
+            <!-- Contenue des questions poser -->
 
           </ul>
         </div>
@@ -569,7 +566,7 @@
 
                 <div class="sent-message">Your message has been send. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit" id="submit">Envoyez votre question</button></div>
+              <div class="text-center"><button type="submit" id="submit-question">Envoyez votre question</button></div>
             </form>
           </div>
 
@@ -589,8 +586,9 @@
           <div class="col-lg-6">
             <h4>Abonnez-vous</h4>
             <p>Envoyez votre adresse mail pour recevoir des informations sur les différentes opportuinités de Sm@rtDiso</p>
-            <form action="" method="post">
-              <input type="email" name="email" placeholder="Your Email"><input type="submit" value="Envoyer">
+            <p class="text-center text-danger" id="erreur-souscrip">Nous rencontrons une erreur réessayer</p>
+            <form id="from-email" method="post">
+              <input type="email" name="email" id="email" placeholder="Your Email"><input type="submit" value="Envoyer" id="submit-email">
             </form>
           </div>
         </div>
@@ -692,11 +690,21 @@
   <script type="text/javascript" src="<?= base_url() ?>/assets/ajax/jquery-1.12.0.min.js"></script>
 
   <!-- include config js -->
-  <script src="assets/js/config-ajax.js"></script>
+  <script src="<?= base_url() ?>/assets/js/config-ajax.js"></script>
+
+  <!-- include sweet alert -->
+  <script src="<?= base_url() ?>/assets/sweet/jquery.sweet-alert.init.js"></script>
+  <script src="<?= base_url() ?>/assets/sweet/sweetalert2.min.js"></script>
 
   <!-- traitement ajax -->
   <script type="text/javascript">
-    
+
+    $(document).ready(function(){
+
+      listQuestion();
+     
+    });
+
     // #@----- Enregistrer la question poser
     $('#form-question').on('submit', function(e) {
     
@@ -708,6 +716,8 @@
       $("#launch-save").show();
       $("#error-message").hide();
       $("#reussite").hide();
+      $("#submit-question").prop("disabled", true);
+
 
       $.ajax({
         url: url,
@@ -719,6 +729,7 @@
         dataType: "JSON",
         success: function(data) { 
 
+          $("#submit-question").prop("disabled", false);
           $("#launch-save").hide();
 
           if (data.success == true) {
@@ -736,12 +747,115 @@
           } 
         },
         error: function(data) {
+           console.log(data);
            $("#error-message").show();
            $("#reussite").hide();
+           $("#submit-question").prop("disabled", false);
+
         }
       });
 
     });
+
+    // #@----- Enregistrer une souscription
+    $('#from-email').on('submit', function(e) {
+    
+      event.preventDefault();
+
+      var formData = new FormData(this);
+      let url = $('meta[name=app-url]').attr("content") + "/souscription/Save";
+
+       $("#erreur-souscrip").hide();
+       $("#submit-email").prop("disabled", true);
+       
+
+      $.ajax({
+        url: url,
+        type: "POST",
+        cache: false,
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "JSON",
+        success: function(data) { 
+
+          $("#erreur-souscrip").hide();
+          $("#submit-email").prop("disabled", false);
+
+          console.log(data);
+          if (data.success == true) {
+
+              const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+             })
+
+             Toast.fire({
+               icon: 'success',
+               title: 'Souscription reussir'
+             });
+             $("#email").val("");
+          }else{
+            
+            // ecrire un message d'erreur
+            $("#erreur-souscrip").show();
+            $("#submit-email").prop("disabled", false);
+          } 
+        },
+        error: function(data) {
+          console.log(data);
+          $("#erreur-souscrip").hide();
+          $("#submit-email").prop("disabled", false);
+        }
+      });
+
+    });
+
+    // #@----- Lister les question
+    function listQuestion(){
+
+      let url = $('meta[name=app-url]').attr("content") + "/question/ListAll";
+
+      $.ajax({
+        url: url,
+        method: "GET",
+        dataType: "JSON",
+        success: function(response){
+          console.log(response);
+          
+                let ObjectQ = response['repondu'];
+                let chaine = '';
+
+                for (var i = 0; i < ObjectQ.length; i++) {
+                     chaine = 
+                      '<li data-aos="fade-up" data-aos-delay="100">'+
+                      '<i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-'+i+'">'+ObjectQ[i].contenue+' <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>'+
+                          '<div id="faq-list-'+i+'" class="collapse show" data-bs-parent=".faq-list">'+
+                        '<p>'+ObjectQ[i].reponse+'.</p> </div>'+
+                      '</li>';
+
+                      $("#list_question").append(chaine);
+
+                      if (ObjectQ.length == 5) {
+                          break;
+                      }
+                }
+
+        },
+        error: function(response){
+          console.log(response);
+        }
+
+      });
+
+    }
 
   </script>
 </body>
