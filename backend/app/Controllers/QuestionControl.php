@@ -11,7 +11,7 @@ class QuestionControl extends ResourcePresenter
 {
     use ResponseTrait;
     
-    #@-- 1 --> enregistre une question
+    #@-- 1 --> enregistrer une question
     #- use: 
     #-
     public function save()

@@ -6,11 +6,11 @@ use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\UserModel;
 
-class Login extends ResourcePresenter
+class FonctionaliteControl extends ResourcePresenter
 {
     use ResponseTrait;
     
-    #@-- 1 --> Liste toutes les questions 
+    #@-- 1 --> Liste toutes les fonctionnalites 
     #- use: 
     #-
     public function listAll()
@@ -18,7 +18,7 @@ class Login extends ResourcePresenter
 
     }
 
-    #@-- 2 --> Liste une questions 
+    #@-- 2 --> Liste une fonctionnalites 
     #- use: 
     #-
     public function listOne($id)
@@ -26,7 +26,7 @@ class Login extends ResourcePresenter
 
     }
 
-    #@-- 3 --> supprime une questions 
+    #@-- 3 --> supprime une fonctionnalites 
     #- use: 
     #-
     public function delete($id)
@@ -34,11 +34,27 @@ class Login extends ResourcePresenter
 
     }
 
-    #@-- 4 --> enregistre une question
+    #@-- 4 --> enregistre une fonctionnalites
     #- use: 
     #-
     public function save()
     {
 
     }
+
+    #@-- 5 --> desactiver une fonctionnalites
+    #- use: 
+    #-
+    public function disable()
+    {
+
+    }
+
+    #@-- 6 --> activer une fonctionnalites
+    #- use: 
+    #-
+    public function enable()
+    {
+
+    }  
 }

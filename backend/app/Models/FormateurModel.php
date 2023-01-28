@@ -5,7 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class FormateurModel extends Model
-{
+{ 
     protected $DBGroup          = 'default';
     protected $table            = 'formateur';
     protected $primaryKey       = 'id_formateur';

@@ -10,6 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
+  <meta name="app-url" content="<?php echo base_url('/');?>">
   <link href="<?= base_url() ?>/assets/img/favicon.png" rel="icon">
   <link href="<?= base_url() ?>/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -74,21 +75,32 @@
         <!-- start login && image -->
           <div class="row">
             <div class="col-lg-6 mt-5 mt-lg-0">
-             <form class="col-lg-7" method="post" data-toggle="validator">
+              <!-- message -->
+              <div class="alert alert-success alert-dismissible fade show col-md-7 border border-success text-center" role="alert" id="card-success">
+                  <b>Connexion Réussie</b>
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show col-md-7 border border-danger text-center" role="alert" id="card-error">
+                  <b>Login ou mot de passe Incorrect</b>
+              </div>
+              <!-- message -->
+             <form class="col-lg-7" id="form-login" method="post" data-toggle="validator">
                 <div class="form-group">
                   <!-- Email input -->
                   <div class="form-outline mb-4">
                     <!-- Error -->
                     <div class="help-block with-errors"></div>
 
-                    <input type="text" required name="login" data-error="You must have a name." id="inputName" autocomplete="off" class="form-control" />
+                    <input type="text" required name="login_formateur" data-error="Entrer le login." id="inputName" autocomplete="off" class="form-control" />
                     <label class="form-label" for="form2Example1">Login</label>
                   </div>
                 </div>
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  <input type="password" id="password" required name="password" class="form-control" />
-                  <label class="form-label" for="form2Example2">Password</label>
+                  <!-- Error -->
+                    <div class="help-block with-errors"></div>
+
+                  <input type="password" required name="pass_formateur" class="form-control" data-error="Mot de passe invalide." id="inputPassword" autocomplete="off"/>
+                  <label class="form-label" id="submit-login" for="form2Example2">Password</label>
                 </div>
 
                 <!-- 2 column grid layout for inline styling -->
@@ -100,7 +112,7 @@
                 </div>
 
                 <!-- Submit button -->
-                <button type="button" type="submit" class="btn btn-success btn-block mb-9 col-lg-12">Login</button>
+                <button type="submit" id="submit-login" class="btn btn-success btn-block mb-9 col-lg-12">Login</button>
 
                 <!-- Register buttons -->
                 <div class="text-center py-4">
@@ -109,7 +121,7 @@
               </form>
             </div>
             <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
-              bloc image
+              <div class="pic"><img src="<?= base_url() ?>/assets/img/team/img-log.png" width="400px" class="img-fluid" alt=""></div> 
             </div>
           </div>
         <!-- start login && image -->
@@ -147,6 +159,62 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 
+  <!-- alert dissiming -->
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
+
+  <!-- include config js -->
+  <script src="<?= base_url() ?>/assets/js/config-ajax.js"></script>
+
+  <!-- include ajax -->
+  <script type="text/javascript" src="<?= base_url() ?>/assets/ajax/jquery-1.12.0.min.js"></script>
+
+  <script type="text/javascript">
+
+      // #@----- Enregistrer la question poser
+    $('#form-login').on('submit', function(e) {
+    
+      event.preventDefault();
+
+      var formData = new FormData(this);
+      let url = $('meta[name=app-url]').attr("content") + "/formateur/Authen";
+
+      $("#submit-login").prop("disabled", true);
+
+      $.ajax({
+        url: url,
+        type: "POST",
+        cache: false,
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "JSON",
+        success: function(data) { 
+          $("#submit-login").prop("disabled", true);
+
+          if (data.success == true) {
+            console.log(data);
+            $("#card-error").hide();
+            $("#card-success").show();
+            $("#inputPassword").val("");
+            $("#inputName").val("");
+          }else{
+            console.log(data);
+            $("#card-error").show();
+            $("#card-success").hide();
+          } 
+        },
+        error: function(data) {
+           console.log(data);
+           $("#card-error").show();
+           $("#card-success").hide();
+           $("#submit-login").prop("disabled", true);
+
+        }
+      });
+
+    });
+
+  </script>
 </body>
 
 </html>
