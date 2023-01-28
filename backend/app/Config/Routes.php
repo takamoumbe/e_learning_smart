@@ -11,7 +11,7 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
-/*
+/* 
  * --------------------------------------------------------------------
  * Router Setup
  * --------------------------------------------------------------------
@@ -43,7 +43,6 @@ $routes->set404Override();
     $routes->get('Login', 'Home::login');
 
     
-
 /*
  * --------------------------------------------------------------------
  * FORMATIONS
@@ -124,8 +123,8 @@ $routes->set404Override();
         $routes->get("Disable/(:any)",         "FormateurControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "FormateurControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
-        $routes->post("Authen",                "AuthenControl.php::authen",                                  );
-        $routes->post("Save",                  "FormateurControl::save",                                     ); 
+        $routes->post("Authen",                "FormateurControl::authen",                                  );
+        $routes->post("Save",                  "FormateurControl::save",           ['filter' => 'authFilter']); 
         $routes->post("Update",                "FormateurControl::update",         ['filter' => 'authFilter']);
 
     });
@@ -143,7 +142,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "QuestionControl::listAll",                                  );
         $routes->get("ListOne/(:any)",         "QuestionControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",         "QuestionControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "QuestionControl::delete_/$1",     ['filter' => 'authFilter']);
         #@Routes post ---
         $routes->post("Save",                  "QuestionControl::save",                                     ); 
         $routes->post("Response",              "QuestionControl::response",       ['filter' => 'authFilter']);
@@ -161,7 +160,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "SouscriptionControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "SouscriptionControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",         "SouscriptionControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "SouscriptionControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "SouscriptionControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "SouscriptionControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -180,7 +179,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "PostControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "PostControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "PostControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "PostControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "PostControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "PostControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -201,7 +200,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "MessageControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "MessageControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "MessageControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "MessageControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "MessageControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "MessageControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -221,7 +220,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "ForumControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "ForumControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "ForumControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "ForumControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "ForumControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "ForumControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -243,7 +242,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "PublicationControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "PublicationControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "PublicationControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "PublicationControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "PublicationControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "PublicationControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -264,7 +263,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "CommentaireControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "CommentaireControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "CommentaireControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "CommentaireControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "CommentaireControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "CommentaireControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -285,7 +284,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "ProjectControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "ProjectControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "ProjectControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "ProjectControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "ProjectControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "ProjectControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---
@@ -306,7 +305,7 @@ $routes->set404Override();
         #@Routes get ---
         $routes->get("ListAll",                "FonctionaliteControl::listAll",        ['filter' => 'authFilter']);
         $routes->get("ListOne/(:any)",         "FonctionaliteControl::listOne/$1",     ['filter' => 'authFilter']); 
-        $routes->get("delete_/(:any)",          "FonctionaliteControl::delete_/$1",      ['filter' => 'authFilter']);
+        $routes->get("delete_/(:any)",         "FonctionaliteControl::delete_/$1",     ['filter' => 'authFilter']);
         $routes->get("Disable/(:any)",         "FonctionaliteControl::disable/$1",     ['filter' => 'authFilter']);
         $routes->get("Enable/(:any)",          "FonctionaliteControl::enable/$1",      ['filter' => 'authFilter']);
         #@Routes post ---

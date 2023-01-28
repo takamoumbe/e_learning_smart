@@ -6,11 +6,11 @@ use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\UserModel;
 
-class Login extends ResourcePresenter
+class CommentaireControl extends ResourcePresenter
 {
     use ResponseTrait;
     
-    #@-- 1 --> Liste toutes les questions 
+    #@-- 1 --> Liste toutes les commentaires 
     #- use: 
     #-
     public function listAll()
@@ -18,7 +18,7 @@ class Login extends ResourcePresenter
 
     }
 
-    #@-- 2 --> Liste une questions 
+    #@-- 2 --> Liste un commentaire 
     #- use: 
     #-
     public function listOne($id)
@@ -26,7 +26,7 @@ class Login extends ResourcePresenter
 
     }
 
-    #@-- 3 --> supprime une questions 
+    #@-- 3 --> supprime un commentaire 
     #- use: 
     #-
     public function delete($id)
@@ -34,7 +34,7 @@ class Login extends ResourcePresenter
 
     }
 
-    #@-- 4 --> enregistre une question
+    #@-- 4 --> enregistre un commentaire
     #- use: 
     #-
     public function save()
