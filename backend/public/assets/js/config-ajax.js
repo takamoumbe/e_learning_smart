@@ -3,4 +3,7 @@ $(document).ready(function() {
       $("#reussite").hide();
       $("#erreur-souscrip").hide();
 
+
+      $("#card-success").hide();
+      $("#card-error").hide();
   })
